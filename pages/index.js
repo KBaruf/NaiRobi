@@ -1,9 +1,14 @@
-import { Fragment } from 'react';
-import styled from 'styled-components';
-
-export default function Home() {
+import React from 'react';
+import { FeaturedProducts, Hero, Services, Contact } from '../components';
+const HomePage = () => {
   return (
-    <Fragment>
-    </Fragment>
+    <main>
+      <Hero />
+      <FeaturedProducts />
+      <Services />
+      <Contact />
+    </main>
   );
-}
+};
+
+export default HomePage;
