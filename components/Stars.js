@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
 const Stars = ({ stars, reviews }) => {
-  console.log(stars);
   const prodStars = Array.from({ length: 5 }, (_, index) => {
     const num = index + 0.5;
     return <span key={index}>{stars >= index + 1 ? <BsStarFill /> : stars >= num ? <BsStarHalf /> : <BsStar />}</span>;
