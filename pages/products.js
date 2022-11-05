@@ -3,20 +3,9 @@ import styled from 'styled-components';
 import { Filters, ProductList, Sort, PageHero } from '../components';
 import { products_url as url } from '../utils/constants';
 
-const ProductsPage = (props) => {
-  const { products } = props;
-  console.log(products);
+const ProductsPage = () => {
   return <h4>products page</h4>;
 };
-
-export async function getStaticProps() {
-  const resp = await fetch(url);
-  const products = await resp.json();
-
-  return {
-    props: { products },
-  };
-}
 
 const Wrapper = styled.div`
   .products {

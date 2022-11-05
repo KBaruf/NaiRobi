@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-const PageHero = ({ title }) => {
+const PageHero = ({ title, product }) => {
   return (
     <Wrapper>
       <div className='section-center'>
         <h3>
-          <Link href='/'>Home</Link>/ {title}
+          <Link href='/'>Home</Link>
+          {product && <Link href='/products'>/Products</Link>}/{title}
         </h3>
       </div>
     </Wrapper>
