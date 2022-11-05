@@ -17,20 +17,20 @@ const SingleProductPage = () => {
 
   // redirect user to Homepage if error
 
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        router.push('/');
-      }, 3000);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (error) {
+  //     setTimeout(() => {
+  //       router.push('/');
+  //     }, 3000);
+  //   }
+  // }, []);
 
   if (loading) {
     return <Loading />;
   }
-  if (error) {
-    return <Error />;
-  }
+  // if (error) {
+  //   return <Error />;
+  // }
 
   const { name, price, description, stock, stars, reviews, id: sku, company, images } = product;
   return (
