@@ -1,8 +1,12 @@
 import { LOAD_PRODUCTS, SET_LISTVIEW, SET_GRIDVIEW, UPDATE_SORT, SORT_PRODUCTS, UPDATE_FILTERS, FILTER_PRODUCTS, CLEAR_FILTERS } from '../actions';
+import products_reducer from './products_reducer';
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
-    return { ...state, all_products: [...action.payload], filtered_products: [...action.payload] };
+    let maxPrice = action.payload.map((prod) => prod.price);
+    maxPrice = Math.max(...maxPrice);
+
+    return { ...state, all_products: [...action.payload], filtered_products: [...action.payload], filters: { ...state, max_price: maxPrice, price: maxPrice } };
   }
   if (action.type === SET_GRIDVIEW) {
     return { ...state, grid_view: true };
@@ -14,10 +18,9 @@ const filter_reducer = (state, action) => {
     return { ...state, sort: action.payload };
   }
 
-  // Sort products alphabetically and price
+  // Sort products alphabetically and price based
   if (action.type === SORT_PRODUCTS) {
     const { sort, filtered_products } = state;
-    console.log(filtered_products);
     let tempProducts = [...filtered_products];
 
     if (sort === 'price-lowest') {
@@ -39,6 +42,70 @@ const filter_reducer = (state, action) => {
     return { ...state, filtered_products: tempProducts };
   }
 
+  // Products Filter Handler
+
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+    return { ...state, filters: { ...state.filters, [name]: value } };
+  }
+  if (action.type === FILTER_PRODUCTS) {
+    const { all_products } = state;
+    const { text, category, company, color, price, shipping } = state.filters;
+    let tempProducts = [...all_products];
+    // text filter
+    if (text) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.name.toLowerCase().startsWith(text);
+      });
+    }
+    // category filter
+    if (category !== 'all' && category) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.category === category;
+      });
+    }
+    // company filter
+    if (company !== 'all' && company) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.company === company;
+      });
+    }
+
+    // colors filter
+    if (color !== 'all' && color) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.colors.find((col) => col === color);
+      });
+    }
+
+    // price filter
+    tempProducts = tempProducts.filter((product) => {
+      return product.price <= price;
+    });
+
+    // shipping filter
+    if (shipping) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.shipping === true;
+      });
+    }
+    return { ...state, filtered_products: tempProducts };
+  }
+
+  if (action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+      filters: {
+        ...state.filters,
+        text: '',
+        company: 'all',
+        category: 'all',
+        color: 'all',
+        price: state.filters.max_price,
+        shipping: false,
+      },
+    };
+  }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 
