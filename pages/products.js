@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Filters, ProductList, Sort, PageHero } from '../components';
+import { Filters, ProductList, Sort, PageHero, loading } from '../components';
 import { products_url as url } from '../utils/constants';
 
 const ProductsPage = () => {
