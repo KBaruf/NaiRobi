@@ -4,13 +4,15 @@ import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import styled from 'styled-components';
 import { useProductsContext } from '../context/products_context';
 import { useCartContext } from '../context/cart_context';
-import { useUserContext } from '../context/user_context';
+import { useSession } from 'next-auth/client';
 const CartButtons = () => {
+  const [session, loading] = useSession();
+
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
 
   return (
-    <Wrapper className='cart-btn-wrapper'>
+    <Wrapper>
       <Link href='/cart' className='cart-btn' onClick={closeSidebar}>
         Cart
         <span className='cart-container'>
@@ -18,9 +20,17 @@ const CartButtons = () => {
           <span className='cart-value'>{total_items}</span>
         </span>
       </Link>
-      <button type='button' className='auth-btn'>
-        Login <FaUserPlus />
-      </button>
+
+      {!session && (
+        <Link href='/' className='auth-btn'>
+          Login <FaUserPlus />
+        </Link>
+      )}
+      {session && (
+        <Link href='/auth' className='auth-btn'>
+          Logout <FaUserMinus />
+        </Link>
+      )}
     </Wrapper>
   );
 };

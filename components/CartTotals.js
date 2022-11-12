@@ -4,9 +4,11 @@ import { useCartContext } from '../context/cart_context';
 import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import Link from 'next/link';
+import { useSession } from 'next-auth/client';
 
 const CartTotals = () => {
   const { total_amount, shipping_fee } = useCartContext();
+  const [session, loading] = useSession();
   return (
     <Wrapper>
       <div>
@@ -24,7 +26,7 @@ const CartTotals = () => {
         </article>
         <Link href='/checkout' className='btn'>
           {' '}
-          proceed to checkout
+          {session ? 'proceed to checkout' : <Link href='/auth'>Login</Link>}
         </Link>
       </div>
     </Wrapper>
