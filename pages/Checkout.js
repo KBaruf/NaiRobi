@@ -6,8 +6,10 @@ import { getSession } from 'next-auth/client';
 import { useCartContext } from '../context/cart_context';
 import Loading from '../components/Loading';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const CheckoutPage = () => {
+  const { cart } = useCartContext();
   const [isLoading, setIsLoading] = useState(true);
   useState();
   useEffect(() => {
@@ -27,7 +29,15 @@ const CheckoutPage = () => {
     <main>
       <PageHero className='checkout' title={'Checkout'} />
       <Wrapper className='page'>
-        <h1>Checkout Here</h1>
+        {cart.length < 1 ? (
+          <div className='empty'>
+            {' '}
+            <h2>Your Cart is Empty</h2>
+            <Link href='/products' className='btn'></Link>
+          </div>
+        ) : (
+          <StripeCheckout />
+        )}
       </Wrapper>
     </main>
   );

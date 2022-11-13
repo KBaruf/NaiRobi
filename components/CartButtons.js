@@ -10,12 +10,14 @@ const CartButtons = () => {
   const [session, loading] = useSession();
 
   const { closeSidebar } = useProductsContext();
-  const { total_items } = useCartContext();
+  const { total_items, clearCart } = useCartContext();
   const logoutHandler = () => {
     closeSidebar();
     signOut({
       callbackUrl: `${window.location.origin}`,
     });
+
+    clearCart();
   };
   return (
     <Wrapper className='cart-btn-wrapper'>

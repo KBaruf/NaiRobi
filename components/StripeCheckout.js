@@ -2,19 +2,122 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
 import { CardElement, useStripe, Elements, useElements } from '@stripe/react-stripe-js';
-import axios from 'axios';
 import { useCartContext } from '../context/cart_context';
 import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
+import { useRouter } from 'next/router';
+
+const promise = loadStripe(process.env.REACT_APP_AUTH_STRIPE_PUBLIC);
 
 const CheckoutForm = () => {
-  return <h4>hello from Stripe Checkout </h4>;
+  const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
+  const router = useRouter();
+  // STRIPE
+  const [succeeded, setSucceeded] = useState(false);
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState('');
+  const [disabled, setDisabled] = useState(true);
+  const [clientSecret, setClientSecret] = useState('');
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const cardStyle = {
+    style: {
+      base: {
+        color: '#32325d',
+        fontFamily: 'Arial, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#32325d',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    },
+  };
+  async function createPaymentIntent() {
+    try {
+      const { data } = await fetch('/.netliyf/functions/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cart, shipping_fee, total_amount }),
+      });
+      setClientSecret(data.clientSecret);
+    } catch (error) {}
+  }
+  useEffect(() => {
+    createPaymentIntent();
+  }, []);
+  async function handleChange(event) {
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : '');
+  }
+  async function handleSubmit(ev) {
+    ev.preventDefault();
+    setProcessing(true);
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+    if (payload.error) {
+      setError(`payment failed ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      setError(null);
+      setProcessing(true);
+      setSucceeded(true);
+      setTimeout(() => {
+        clearCart();
+        router.push('/');
+      }, 10000);
+    }
+  }
+
+  return (
+    <div>
+      {succeeded ? (
+        <article>
+          <h4>Thank you</h4>
+          <h4>Your Payment was Successful!</h4>
+          <h4>Redirecting to HomePage...</h4>
+        </article>
+      ) : (
+        <article>
+          <h4>Hello,</h4>
+          <p>Your total is {formatPrice(shipping_fee + total_amount)}</p>
+          <p>Test Card Number: 4242 4242 4242 4242 </p>
+          <p>Test Expiration date: 12/34</p>
+          <p>Test CVV:567</p>
+        </article>
+      )}
+      <form id='payment-form' onsubmit={handleSubmit}>
+        <CardElement id='card-element' options={cardStyle} onChange={handleChange} />
+        <button disabled={processing || disabled || succeeded} id='submit'>
+          <span className='button-text'>{processing ? <div className='spinner' id='spinner'></div> : 'PAY'}</span>
+        </button>
+        {error && (
+          <div className='card-error' role='alert'>
+            {error}
+          </div>
+        )}
+        <p className={succeeded ? 'result-message' : 'result-message hidden'}>
+          payment succedded, see the results in your <a href={`https://dashboard.stripe.com/test/payments`}>Stripe dashboard</a> Refresh the page to pay again
+        </p>
+      </form>{' '}
+    </div>
+  );
 };
 
 const StripeCheckout = () => {
   return (
     <Wrapper>
-      <CheckoutForm />
+      <Elements stripe={promise}>
+        <CheckoutForm />
+      </Elements>
     </Wrapper>
   );
 };
