@@ -94,7 +94,7 @@ const CheckoutForm = () => {
           <p>Test CVV:567</p>
         </article>
       )}
-      <form id='payment-form' onsubmit={handleSubmit}>
+      <form id='payment-form' onSubmit={handleSubmit}>
         <CardElement id='card-element' options={cardStyle} onChange={handleChange} />
         <button disabled={processing || disabled || succeeded} id='submit'>
           <span className='button-text'>{processing ? <div className='spinner' id='spinner'></div> : 'PAY'}</span>
