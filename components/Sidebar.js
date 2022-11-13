@@ -34,7 +34,7 @@ const Sidebar = () => {
             );
           })}
           <ul>
-            <Link href={'/Checkout'} onClick={closeSidebar}>
+            <Link href={'/checkout'} onClick={closeSidebar}>
               Checkout
             </Link>
           </ul>

@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
-import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import Link from 'next/link';
-import { useSession } from 'next-auth/client';
+import { useSession, getSession } from 'next-auth/client';
 
 const CartTotals = () => {
   const { total_amount, shipping_fee } = useCartContext();
   const [session, loading] = useSession();
+  const [userAuth, setUserAuth] = useState(false);
+
+  useEffect(() => {
+    getSession().then((session) => {
+      session && setUserAuth(true);
+    });
+  }, []);
   return (
     <Wrapper>
       <div>
@@ -26,7 +32,7 @@ const CartTotals = () => {
         </article>
         <Link href='/checkout' className='btn'>
           {' '}
-          {session ? 'proceed to checkout' : <Link href='/auth'>Login</Link>}
+          {userAuth ? 'proceed to checkout' : <Link href='/auth'>Login</Link>}
         </Link>
       </div>
     </Wrapper>

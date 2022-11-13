@@ -12,8 +12,8 @@ const Filters = () => {
     all_products,
   } = useFilterContext();
 
-  if (!company) company = 'all';
-  if (!category) category = 'all';
+  // if (!company) company = 'all';
+  // if (!category) category = 'all';
 
   const categories = getUniqueValues(all_products, 'category');
   const companies = getUniqueValues(all_products, 'company');

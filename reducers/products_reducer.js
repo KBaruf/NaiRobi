@@ -6,7 +6,7 @@ const products_reducer = (state, action) => {
     return { ...state, isSidebarOpen: true };
   }
   if (action.type === SIDEBAR_CLOSE) {
-    return { ...state, closeSidebar: false };
+    return { ...state, closeSidebar: false, isSidebarOpen: false };
   }
   // manage all products
   if (action.type === GET_PRODUCTS_BEGIN) {

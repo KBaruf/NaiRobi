@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import styled from 'styled-components';
 import { useProductsContext } from '../context/products_context';
 import { useCartContext } from '../context/cart_context';
-import { useSession } from 'next-auth/client';
+import { useSession, signOut } from 'next-auth/client';
+import Loading from './Loading';
 const CartButtons = () => {
   const [session, loading] = useSession();
 
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
-
+  const logoutHandler = () => {
+    closeSidebar();
+    signOut({
+      callbackUrl: `${window.location.origin}`,
+    });
+  };
   return (
-    <Wrapper>
+    <Wrapper className='cart-btn-wrapper'>
       <Link href='/cart' className='cart-btn' onClick={closeSidebar}>
         Cart
         <span className='cart-container'>
@@ -20,14 +26,13 @@ const CartButtons = () => {
           <span className='cart-value'>{total_items}</span>
         </span>
       </Link>
-
       {!session && (
-        <Link href='/' className='auth-btn'>
+        <Link href='/auth' className='auth-btn' onClick={closeSidebar}>
           Login <FaUserPlus />
         </Link>
       )}
       {session && (
-        <Link href='/auth' className='auth-btn'>
+        <Link href='/' onClick={logoutHandler} className='auth-btn'>
           Logout <FaUserMinus />
         </Link>
       )}

@@ -3,12 +3,16 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
+import { Loading } from '../components';
+import { useSession } from 'next-auth/client';
 
 const Authentication = () => {
   const [activeAcc, setActiveAcc] = useState(true);
   const [successAlert, setSuccessAlert] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorText, setErrorText] = useState('');
+  const [accSuccess, setAccSuccess] = useState(false);
+  const [session, loading] = useSession();
 
   // Create User and Display error messages
   async function createUserHandler(email, password) {
@@ -19,11 +23,12 @@ const Authentication = () => {
         headers: { 'Content-Type': 'application/json' },
       });
       const data = await response.json();
+
       if (response.ok) {
         setSuccessAlert(true);
         setTimeout(() => {
           setSuccessAlert(false);
-        }, 3600);
+        }, 3000);
       }
       if (response.status === 200) {
         setSuccessAlert(false);
@@ -42,7 +47,7 @@ const Authentication = () => {
           setErrorAlert(false);
         }, 3600);
       }
-      console.log(response);
+      // console.log(response);
       if (!response.ok) {
         setErrorAlert(true);
         setTimeout(() => {
@@ -76,40 +81,47 @@ const Authentication = () => {
     const signinEmail = emailSigninRef.current.value;
     const signinPassword = passSigninRef.current.value;
 
-    if (activeAcc) {
-      const result = await signIn('credentials', {
-        redirect: false,
+    if (!activeAcc) return;
+
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: signinEmail,
+      password: signinPassword,
+    });
+    console.log(result);
+    // Handle Login Error
+
+    setErrorAlert(true);
+    setAccSuccess(false);
+    setErrorText(result.error);
+    setTimeout(() => {
+      setErrorAlert(false);
+    }, 3600);
+
+    // user is authenticated
+    if (result.ok && !result.error) {
+      emailSigninRef.current.value = '';
+      passSigninRef.current.value = '';
+      setSuccessAlert(true);
+      setAccSuccess(false);
+      setTimeout(() => {
+        setSuccessAlert(false);
+      }, 3600);
+
+      await signIn('credentials', {
+        callbackUrl: `${window.location.origin}/checkout`,
         email: signinEmail,
         password: signinPassword,
       });
+    }
 
-      // user is authenticated
-      if (result.ok) {
-        router.push({
-          pathname: '/checkout',
-        });
-      }
-
-      if (!result.error) {
-        setSuccessAlert(true);
-        setTimeout(() => {
-          setSuccessAlert(false);
-        }, 3600);
-      }
+    if (signinEmail.length === 0) {
       setErrorAlert(true);
-      setErrorText(result.error);
+      setErrorText('Nothing was Entered!');
       setTimeout(() => {
         setErrorAlert(false);
-      }, 3600);
-      if (signinEmail.length === 0) {
-        setErrorAlert(true);
-        setErrorText('Nothing was Entered!');
-        setTimeout(() => {
-          setErrorAlert(false);
-        }, 2000);
-      }
-      emailSigninRef.current.value = '';
-      passSigninRef.current.value = '';
+      }, 2000);
+      return;
     }
   };
 
@@ -119,8 +131,24 @@ const Authentication = () => {
       const signupEmail = emailSignupRef.current.value;
       const signupPassword = passSignupRef.current.value;
       const result = await createUserHandler(signupEmail, signupPassword);
-      emailSignupRef.current.value = '';
-      passSignupRef.current.value = '';
+
+      if (signupPassword.length < 6) {
+        setErrorAlert(true);
+        setSuccessAlert(false);
+        setErrorText('Password needs to be atleat 6 characters');
+        setTimeout(() => {
+          setErrorAlert(false);
+        }, 3600);
+        return;
+      }
+      if (result) {
+        emailSignupRef.current.value = '';
+        passSignupRef.current.value = '';
+        setActiveAcc(true);
+        setTimeout(() => {
+          setAccSuccess(true);
+        }, 3200);
+      }
     }
   };
 
@@ -129,6 +157,7 @@ const Authentication = () => {
       <Wrapper>
         <div className='login-form'>
           {successAlert && <p className='success'>success</p>}
+          {accSuccess && <p className='success'>Please Login to Continue!</p>}
           {errorAlert && <p className='alert'>{errorText}</p>}
 
           <button className='  create-account' type='button' onClick={() => setActiveAcc(false)}>
@@ -162,7 +191,6 @@ const Authentication = () => {
           <button className='  create-account' type='button' onClick={() => setActiveAcc(true)}>
             Login
           </button>
-
           <h2 className='create_account--title'>sign up</h2>
           <form onSubmit={signUpHandler} className='section'>
             <input autoFocus type='text' title='email' placeholder='johnsmith@email.com' ref={emailSignupRef} />
