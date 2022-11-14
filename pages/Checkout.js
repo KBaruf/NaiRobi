@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PageHero, StripeCheckout } from '../components';
-import { getSession } from 'next-auth/client';
+import { getSession } from 'next-auth/react';
 // extra imports
 import { useCartContext } from '../context/cart_context';
 import Loading from '../components/Loading';

@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
 import { formatPrice } from '../utils/helpers';
 import Link from 'next/link';
-import { useSession, getSession } from 'next-auth/client';
+import { useSession, getSession } from 'next-auth/react';
 
 const CartTotals = () => {
   const { total_amount, shipping_fee } = useCartContext();
-  const [session, loading] = useSession();
+  const { data: session, loading } = useSession();
+
   const [userAuth, setUserAuth] = useState(false);
 
   useEffect(() => {

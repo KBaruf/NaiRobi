@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { signIn } from 'next-auth/client';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Loading } from '../components';
-import { useSession } from 'next-auth/client';
+import { useSession } from 'next-auth/react';
 
 const Authentication = () => {
   const [activeAcc, setActiveAcc] = useState(true);
@@ -12,7 +12,7 @@ const Authentication = () => {
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [accSuccess, setAccSuccess] = useState(false);
-  const [session, loading] = useSession();
+  const { data: session, loading } = useSession();
 
   // Create User and Display error messages
   async function createUserHandler(email, password) {

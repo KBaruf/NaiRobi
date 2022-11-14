@@ -2,7 +2,7 @@ import React from 'react';
 import { FeaturedProducts, Hero, Services, Contact } from '../components';
 import Loading from '../components/Loading';
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/client';
+import { getSession } from 'next-auth/react';
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);

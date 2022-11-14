@@ -4,10 +4,10 @@ import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import styled from 'styled-components';
 import { useProductsContext } from '../context/products_context';
 import { useCartContext } from '../context/cart_context';
-import { useSession, signOut } from 'next-auth/client';
+import { useSession, signOut } from 'next-auth/react';
 import Loading from './Loading';
 const CartButtons = () => {
-  const [session, loading] = useSession();
+  const { data: session, loading } = useSession();
 
   const { closeSidebar } = useProductsContext();
   const { total_items, clearCart } = useCartContext();

@@ -1,13 +1,13 @@
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import { verifyPass } from '../../../lib/auth';
 import { connectToDatabase } from '../../../lib/db';
-export default NextAuth({
+const authOptions = {
   session: {
-    jwt: true,
+    strategy: 'jwt',
   },
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       type: 'credentials',
       async authorize(credentials) {
         const client = await connectToDatabase();
@@ -32,4 +32,6 @@ export default NextAuth({
       },
     }),
   ],
-});
+  secret: process.env.NEXTAUTH_SECRET,
+};
+export default NextAuth(authOptions);
