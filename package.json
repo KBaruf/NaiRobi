@@ -16,7 +16,7 @@
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "mongodb": "^4.11.0",
     "next": "^13.0.1",
     "next-auth": "^4.16.4",
