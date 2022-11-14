@@ -31,9 +31,10 @@ const CheckoutPage = () => {
       <Wrapper className='page'>
         {cart.length < 1 ? (
           <div className='empty'>
-            {' '}
             <h2>Your Cart is Empty</h2>
-            <Link href='/products' className='btn'></Link>
+            <Link href='/products' className='btn'>
+              Add Items
+            </Link>
           </div>
         ) : (
           <StripeCheckout />
@@ -42,5 +43,12 @@ const CheckoutPage = () => {
     </main>
   );
 };
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .empty {
+    text-align: center;
+  }
+`;
 export default CheckoutPage;
