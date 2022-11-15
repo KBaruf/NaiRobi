@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 import { CardElement, useStripe, Elements, useElements } from '@stripe/react-stripe-js';
 import { useCartContext } from '../context/cart_context';
 import { formatPrice } from '../utils/helpers';
 import { useRouter } from 'next/router';
 
-const promise = loadStripe(`${process.env.REACT_APP_AUTH_STRIPE_PUBLIC}`);
+const promise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
@@ -40,14 +39,17 @@ const CheckoutForm = () => {
   };
   async function createPaymentIntent() {
     try {
-      const { data } = await axios.post('/.netlify/functions/create-payment-intent', {
+      const res = await fetch('../pages/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cart, shipping_fee, total_amount }),
       });
-
+      const data = await res.json();
+      console.log(data);
       setClientSecret(data.clientSecret);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     createPaymentIntent();
@@ -80,8 +82,8 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      <div className='center'>
-        {succeeded ? (
+      <div className='App'>
+        {clientSecret ? (
           <article>
             <h4>Thank you</h4>
             <h4>Your Payment was Successful!</h4>
