@@ -7,7 +7,7 @@ import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import { useRouter } from 'next/router';
 
-const promise = loadStripe(process.env.REACT_APP_AUTH_STRIPE_PUBLIC);
+const promise = loadStripe(`${process.env.REACT_APP_AUTH_STRIPE_PUBLIC}`);
 
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
