@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 import { CardElement, useStripe, Elements, useElements } from '@stripe/react-stripe-js';
 import { useCartContext } from '../context/cart_context';
-import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import { useRouter } from 'next/router';
 
@@ -40,11 +40,12 @@ const CheckoutForm = () => {
   };
   async function createPaymentIntent() {
     try {
-      const { data } = await fetch('/.netlify/functions/create-payment-intent', {
+      const { data } = await axios.post('/.netlify/functions/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cart, shipping_fee, total_amount }),
       });
+
       setClientSecret(data.clientSecret);
     } catch (error) {}
   }
