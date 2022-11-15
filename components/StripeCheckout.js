@@ -7,7 +7,7 @@ import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import { useRouter } from 'next/router';
 
-const promise = loadStripe(process.env.REACT_APP_AUTH_STRIPE_PUBLIC);
+const promise = loadStripe(`${process.env.REACT_APP_AUTH_STRIPE_PUBLIC}`);
 
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
@@ -79,21 +79,21 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      {succeeded ? (
-        <article>
-          <h4>Thank you</h4>
-          <h4>Your Payment was Successful!</h4>
-          <h4>Redirecting to HomePage...</h4>
-        </article>
-      ) : (
-        <article>
-          <h4>Hello,</h4>
-          <p>Your total is {formatPrice(shipping_fee + total_amount)}</p>
-          <p>Test Card Number: 4242 4242 4242 4242 </p>
-          <p>Test Expiration date: 12/34</p>
-          <p>Test CVV:567</p>
-        </article>
-      )}
+      <div className='center'>
+        {succeeded ? (
+          <article>
+            <h4>Thank you</h4>
+            <h4>Your Payment was Successful!</h4>
+            <h4>Redirecting to HomePage...</h4>
+          </article>
+        ) : (
+          <article>
+            <p>Test Card#: 4242 4242 4242 4242 </p>
+            <p>(Ex date: 12/34 ) (CVV: 333)</p>
+            <h4>Your total is {formatPrice(shipping_fee + total_amount)} </h4>
+          </article>
+        )}
+      </div>
       <form id='payment-form' onSubmit={handleSubmit}>
         <CardElement id='card-element' options={cardStyle} onChange={handleChange} />
         <button disabled={processing || disabled || succeeded} id='submit'>
@@ -123,6 +123,16 @@ const StripeCheckout = () => {
 };
 
 const Wrapper = styled.section`
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+    width: 100vw;
+  }
   form {
     width: 30vw;
     align-self: center;
@@ -140,6 +150,9 @@ const Wrapper = styled.section`
     width: 100%;
     background: white;
     box-sizing: border-box;
+  }
+  .center {
+    text-align: center;
   }
   .result-message {
     line-height: 22px;

@@ -1,7 +1,7 @@
 // domain/.netliyf/functions/create-payment-intent
 require('detenv').config();
 
-const stripe = require('stripe')(process.env.REACT_APP_AUTH_STRIPE_SECRET);
+const stripe = require('stripe')(`${process.env.REACT_APP_AUTH_STRIPE_SECRET}`);
 
 exports.handler = async function (event, context) {
   if (event.body) {
