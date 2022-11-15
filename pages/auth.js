@@ -88,7 +88,7 @@ const Authentication = () => {
       email: signinEmail,
       password: signinPassword,
     });
-    console.log(result);
+    // console.log(result);
     // Handle Login Error
 
     setErrorAlert(true);
