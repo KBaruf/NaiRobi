@@ -65,11 +65,11 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id='payment-form' onSubmit={handleSubmit}>
+    <form id='payment-form' onSubmit={handleSubmit} className='m-auto'>
       <article>
+        <h3>Your total is {formatPrice(shipping_fee + total_amount)} </h3>
         <p>Test Card#: 4242 4242 4242 4242 </p>
         <p>(Ex date: 12/34 ) (CVV: 333)</p>
-        <h4>Your total is {formatPrice(shipping_fee + total_amount)} </h4>
       </article>
       <PaymentElement id='payment-element' />
       <button disabled={isLoading || !stripe || !elements} id='submit'>
