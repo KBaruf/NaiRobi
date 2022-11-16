@@ -1,5 +1,7 @@
 import React from 'react';
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useCartContext } from '../context/cart_context';
+import { formatPrice } from '../utils/helpers';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -7,6 +9,7 @@ export default function CheckoutForm() {
 
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
+  const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
 
   React.useEffect(() => {
     if (!stripe) {
@@ -63,6 +66,11 @@ export default function CheckoutForm() {
 
   return (
     <form id='payment-form' onSubmit={handleSubmit}>
+      <article>
+        <p>Test Card#: 4242 4242 4242 4242 </p>
+        <p>(Ex date: 12/34 ) (CVV: 333)</p>
+        <h4>Your total is {formatPrice(shipping_fee + total_amount)} </h4>
+      </article>
       <PaymentElement id='payment-element' />
       <button disabled={isLoading || !stripe || !elements} id='submit'>
         <span id='button-text'>{isLoading ? <div className='spinner' id='spinner'></div> : 'Pay now'}</span>
