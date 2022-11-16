@@ -2,21 +2,22 @@ import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import { Loading } from '../components';
 const Paymentsuccess = () => {
   const { shipping_fee, total_amount, clearCart } = useCartContext();
   const totalPayment = shipping_fee + total_amount;
   const { data: session, loading } = useSession();
 
   const router = useRouter();
-  // page protection
-  // if (!session) {
-  //   router.push({ pathname: '/' });
-  // }
-
-  // // push to homepage
-  // setTimeout(() => {
-  //   router.push({ pathname: '/' });
-  // }, 3600);
+  if (typeof window !== 'undefined') {
+    if (!session) {
+      router.push({ pathname: '/' });
+    } else {
+      setTimeout(() => {
+        router.push({ pathname: '/' });
+      }, 3600);
+    }
+  }
 
   clearCart();
   return (
@@ -25,9 +26,15 @@ const Paymentsuccess = () => {
         <span className='checkmark'>✓</span>
       </div>
       <h1>Success</h1>
-      <p>
-        Payment of <strong>${totalPayment} </strong>was proccessed successfully
-      </p>
+      <p>Your payment was proccessed successfully</p>
+      <button
+        className='btn'
+        onClick={() => {
+          window.location.href = '/';
+        }}
+      >
+        Back to Homepage{' '}
+      </button>
     </Wrapper>
   );
 };

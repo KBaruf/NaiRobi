@@ -53,15 +53,6 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         return_url: 'https://comfysloth.vercel.app/paymentSuccess',
-        shipping: {
-          address: { city: 'NY' },
-          name: 'Shipping user',
-        },
-        payment_method_data: {
-          billing_details: {
-            name: 'Billing user',
-          },
-        },
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
@@ -69,7 +60,6 @@ export default function CheckoutForm() {
     } else {
       setMessage('An unexpected error occurred.');
     }
-
     setIsLoading(false);
   };
 
