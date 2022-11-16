@@ -17,7 +17,7 @@ const AboutPage = () => {
               <div className='underline'></div>
             </h2>
           </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iure, quo quisquam dolorem excepturi temporibus aliquam! Delectus mollitia distinctio corporis soluta cupiditate autem, repellat aspernatur in neque cumque aperiam accusantium? obcaecati suscipit labore? Ad, iusto? Laudantium magni dicta, hic cupiditate minus itaque!</p>
+          <p>ComfySloth is a wood company located in Fort Woth Tx. We specialize in both commercial and residential funitures. Established over 45 years ago as a local cabinet shop, we have grown and attained a great experience in woodworking. We are commited to delivering high qulity funitures and establish a long term working relationship with our partners and customers.</p>
         </article>
       </Wrapper>
     </main>

@@ -159,7 +159,9 @@ const Authentication = () => {
           {successAlert && <p className='success'>success</p>}
           {accSuccess && <p className='success'>Please Login to Continue!</p>}
           {errorAlert && <p className='alert'>{errorText}</p>}
-
+          <p style={{ textAlign: 'center', backgroundColor: '#eee' }}>
+            <strong>test account: </strong>[email: test@test.com || password: 123456]
+          </p>
           <button className='  create-account' type='button' onClick={() => setActiveAcc(false)}>
             Create Account
           </button>

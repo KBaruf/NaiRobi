@@ -1,5 +1,5 @@
-import React from 'react'
-import { GiCompass, GiDiamondHard, GiStabbedNote } from 'react-icons/gi'
+import React from 'react';
+import { GiCompass, GiDiamondHard, GiStabbedNote } from 'react-icons/gi';
 export const links = [
   {
     id: 1,
@@ -16,32 +16,25 @@ export const links = [
     text: 'products',
     url: '/products',
   },
-]
+];
 
 export const services = [
   {
     id: 1,
     icon: <GiCompass />,
     title: 'mission',
-    text:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi',
+    text: 'We are on a mission to provide a high quality funiture in a flexible and reliable way. We want out customers to trust us and feel respected',
   },
   {
     id: 2,
     icon: <GiDiamondHard />,
     title: 'vision',
-    text:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi',
+    text: 'Our vision is to be a leading international furniture manufacturer by offering innovative and superior quality products made completely in America',
   },
   {
     id: 3,
     icon: <GiStabbedNote />,
     title: 'history',
-    text:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi',
+    text: ' Our company was established over 45 years ago by a group of wood crafting enthusiast. we started in Fort Worth Tx but we have grown to over 90 location in 10 countries.',
   },
-]
-
-export const products_url = 'https://course-api.com/react-store-products'
-
-export const single_product_url = `https://course-api.com/react-store-single-product?id=`
+];

@@ -14,8 +14,8 @@ const Hero = () => {
           <br />
           comfort zone
         </h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur veniam rerum exercitationem, numquam ad provident, itaque quam sit.</p>
-        <Link href='/' className='btn hero-btn'>
+        <p>With over 45 years in business, we have expertise to customize and desgn your funiture to your pleasing. We can make anything from a simple chairs to highly elaborate and unique funitures. </p>
+        <Link href='/products' className='btn hero-btn'>
           shop now
         </Link>
       </article>

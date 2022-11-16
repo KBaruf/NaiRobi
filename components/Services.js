@@ -11,7 +11,7 @@ const Services = () => {
             custom funiture <br />
             build only for you
           </h3>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat sint porro mollitia eligendi tenetur labore at. </p>
+          <p>A good home funiture is more than just a piece of wood, its part of our comfort and happiness</p>
         </article>
         <div className='services-center'>
           {services.map((service) => {
