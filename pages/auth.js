@@ -193,7 +193,7 @@ const Authentication = () => {
           <button className='  create-account' type='button' onClick={() => setActiveAcc(true)}>
             Login
           </button>
-          <h2 className='create_account--title'>sign up</h2>
+          <h2>sign up</h2>
           <form onSubmit={signUpHandler} className='section'>
             <input autoFocus type='text' title='email' placeholder='johnsmith@email.com' ref={emailSignupRef} />
             <input type='password' title='password' placeholder='password' ref={passSignupRef} />
@@ -244,7 +244,6 @@ const Wrapper = styled.section`
       width: 100%;
       text-align: center;
       padding: 0.75em 1em 0.75em 1.5em;
-      box-shadow: inset 0px 1px 1px fadeout(white, 95%);
       margin: 0;
       font-size: 2.4rem;
     }
@@ -334,8 +333,8 @@ const Wrapper = styled.section`
     background: hsl(22, 31%, 52%);
   }
   @media screen and (max-width: 1100px) {
-    .create_account--title {
-      font-size: 2.1rem;
+    .login-form h2 {
+      font-size: 2.2rem;
     }
     .create-account {
       font-size: 0.8rem;
@@ -343,8 +342,8 @@ const Wrapper = styled.section`
     }
   }
   @media screen and (max-width: 900px) {
-    .create_account--title {
-      font-size: 1.9rem;
+    .login-form h2 {
+      font-size: 1.8rem;
     }
     .create-account {
       font-size: 0.7rem;
