@@ -1,8 +1,11 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-export default handler = async function (req, res) {
+export default async function handler(req, res) {
   try {
-    const data = req.body;
-    const { shipping_fee, total_amount } = data;
+    // if (req.method === 'GET') {
+    //   res.status(200).json({ client_secret: process.env.STRIPE_SECRET_KEY });
+    //   return;
+    // }
+    const { shipping_fee, total_amount } = req.body;
 
     const calculateOrderamount = () => {
       return shipping_fee + total_amount;
@@ -12,7 +15,9 @@ export default handler = async function (req, res) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalAmount,
       currency: 'usd',
-      enable: true,
+      automatic_payment_methods: {
+        enabled: true,
+      },
     });
     res.send({
       clientSecret: paymentIntent.client_secret,
@@ -21,4 +26,4 @@ export default handler = async function (req, res) {
     res.status(500).json({ error: error.message });
     return;
   }
-};
+}
