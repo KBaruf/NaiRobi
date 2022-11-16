@@ -25,7 +25,7 @@ const Sort = () => {
         <label htmlFor='sort'>sort by</label>
         <select value={sort} onChange={updateSort} name='sort' id='sort' className='sort-input'>
           <option value='price-lowest'>price(lowest)</option>
-          <option value='price-highest'>price(lowest)</option>
+          <option value='price-highest'>price(highest)</option>
           <option value='name-az'>Name(a-z)</option>
           <option value='name-za'>Name(z-a)</option>
         </select>
