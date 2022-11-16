@@ -7,7 +7,7 @@ import CheckoutForm from '../components/checkoutForm';
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
-export default function StripeCheckout() {
+export default function stripeCheckout() {
   const [clientSecret, setClientSecret] = React.useState('');
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
   React.useEffect(() => {
