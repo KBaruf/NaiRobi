@@ -2,12 +2,11 @@ import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useCartContext } from '../context/cart_context';
-
 import CheckoutForm from '../components/checkoutForm';
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
-export default function stripeCheckout() {
+function StripeCheckout() {
   const [clientSecret, setClientSecret] = React.useState('');
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
   React.useEffect(() => {
@@ -41,3 +40,4 @@ export default function stripeCheckout() {
     </div>
   );
 }
+export default StripeCheckout;

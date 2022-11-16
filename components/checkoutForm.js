@@ -38,7 +38,7 @@ export default function CheckoutForm() {
           break;
       }
     });
-  }, [stripe]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +52,16 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'https://comfysloth.vercel.app/',
+        return_url: 'http://localhost:3000/paymentSuccess',
+        shipping: {
+          address: { city: 'NY' },
+          name: 'Shipping user',
+        },
+        payment_method_data: {
+          billing_details: {
+            name: 'Billing user',
+          },
+        },
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
