@@ -2,7 +2,7 @@ import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useCartContext } from '../context/cart_context';
-import CheckoutForm from '../components/checkoutForm';
+import CheckoutForm from './checkoutForm';
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
