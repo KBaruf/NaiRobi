@@ -38,3 +38,7 @@ export const services = [
     text: ' Our company was established over 45 years ago by a group of wood crafting enthusiast. We started in Fort Worth Tx, now grown to over 90 location in 10 countries.',
   },
 ];
+
+export const products_url = 'https://course-api.com/react-store-products';
+
+export const single_product_url = `https://course-api.com/react-store-single-product?id=`;

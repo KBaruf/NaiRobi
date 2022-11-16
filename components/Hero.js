@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import heroBcg from '../assets/hero-bcg.jpeg';
 import heroBcg2 from '../assets/hero-bcg-2.jpeg';
+import heroBcg3 from '../assets/hero-bcg-3.jpg';
 
 const Hero = () => {
   return (
@@ -20,7 +21,7 @@ const Hero = () => {
         </Link>
       </article>
       <article className='img-container'>
-        <Image src={heroBcg} alt='nice table' className='main-img' />
+        <Image src={heroBcg3} alt='nice table' className='main-img' />
         <Image src={heroBcg2} alt='person working' className='accent-img' />
       </article>
     </Wrapper>
