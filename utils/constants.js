@@ -35,6 +35,6 @@ export const services = [
     id: 3,
     icon: <GiStabbedNote />,
     title: 'history',
-    text: ' Our company was established over 45 years ago by a group of wood crafting enthusiast. we started in Fort Worth Tx but we have grown to over 90 location in 10 countries.',
+    text: ' Our company was established over 45 years ago by a group of wood crafting enthusiast. We started in Fort Worth Tx, now grown to over 90 location in 10 countries.',
   },
 ];
