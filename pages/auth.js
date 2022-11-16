@@ -78,8 +78,8 @@ const Authentication = () => {
   // Sign User In
   const signinHandler = async (event) => {
     event.preventDefault();
-    const signinEmail = emailSigninRef.current.value;
-    const signinPassword = passSigninRef.current.value;
+    const signinEmail = emailSigninRef.current.value.toLowerCase();
+    const signinPassword = passSigninRef.current.value.toLowerCase();
 
     if (!activeAcc) return;
 
@@ -128,8 +128,8 @@ const Authentication = () => {
   const signUpHandler = async (event) => {
     event.preventDefault();
     if (!activeAcc) {
-      const signupEmail = emailSignupRef.current.value;
-      const signupPassword = passSignupRef.current.value;
+      const signupEmail = emailSignupRef.current.value.toLowerCase();
+      const signupPassword = passSignupRef.current.value.toLowerCase();
       const result = await createUserHandler(signupEmail, signupPassword);
 
       if (signupPassword.length < 6) {
