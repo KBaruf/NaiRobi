@@ -52,7 +52,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:3000/paymentSuccess',
+        return_url: 'https://comfysloth.vercel.app/paymentSuccess',
         shipping: {
           address: { city: 'NY' },
           name: 'Shipping user',
