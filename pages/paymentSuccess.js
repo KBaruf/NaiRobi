@@ -11,12 +11,13 @@ const Paymentsuccess = () => {
   const router = useRouter();
   if (typeof window !== 'undefined') {
     if (!session) {
-      router.push({ pathname: '/' });
-    } else {
-      setTimeout(() => {
-        router.push({ pathname: '/' });
-      }, 3600);
+      window.location.href = '/';
     }
+    //  else {
+    //   setTimeout(() => {
+    //     window.location.href = '/';
+    //   }, 3600);
+    // }
   }
 
   clearCart();
@@ -27,14 +28,17 @@ const Paymentsuccess = () => {
       </div>
       <h1>Success</h1>
       <p>Your payment was proccessed successfully</p>
-      <button
+      <div style={{ paddingTop: '2rem' }}>
+        <h4>Redirecting to HomePage...</h4>
+      </div>
+      {/* <button
         className='btn'
         onClick={() => {
           window.location.href = '/';
         }}
       >
         Back to Homepage{' '}
-      </button>
+      </button> */}
     </Wrapper>
   );
 };

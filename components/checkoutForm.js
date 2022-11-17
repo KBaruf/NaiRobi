@@ -52,7 +52,8 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'https://comfysloth.vercel.app/paymentSuccess',
+        return_url: 'http://localhost:3000/paymentSuccess',
+        // return_url: 'https://comfysloth.vercel.app/paymentSuccess',
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
@@ -64,18 +65,20 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id='payment-form' onSubmit={handleSubmit} className='m-auto'>
-      <article>
-        <h3>Your total is {formatPrice(shipping_fee + total_amount)} </h3>
-        <p>Test Card#: 4242 4242 4242 4242 </p>
-        <p>(Ex date: 12/34 ) (CVV: 333)</p>
-      </article>
-      <PaymentElement id='payment-element' />
-      <button disabled={isLoading || !stripe || !elements} id='submit'>
-        <span id='button-text'>{isLoading ? <div className='spinner' id='spinner'></div> : 'Pay now'}</span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id='payment-message'>{message}</div>}
-    </form>
+    <div>
+      <form id='payment-form' onSubmit={handleSubmit} className='m-auto'>
+        <article>
+          <h3>Your total is {formatPrice(shipping_fee + total_amount)} </h3>
+          <p>Test Card#: 4242 4242 4242 4242 </p>
+          <p>(Ex date: 12/34 ) (CVV: 333)</p>
+        </article>
+        <PaymentElement id='payment-element' />
+        <button disabled={isLoading || !stripe || !elements} id='submit'>
+          <span id='button-text'>{isLoading ? <div className='spinner' id='spinner'></div> : 'Pay now'}</span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && <div id='payment-message'>{message}</div>}
+      </form>
+    </div>
   );
 }
