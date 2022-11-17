@@ -17,6 +17,9 @@ const Contact = () => {
       setErr(true);
       return;
     }
+    setTimeout(() => {
+      emailRef.current.value = '';
+    }, 4000);
   };
   return (
     <Wrapper>
