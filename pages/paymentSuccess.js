@@ -30,7 +30,7 @@ const Paymentsuccess = () => {
       <button
         className='btn'
         onClick={() => {
-          router.push('/');
+          router.push({ pathname: '/' });
         }}
       >
         Back to Homepage{' '}
