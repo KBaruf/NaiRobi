@@ -17,9 +17,14 @@ const Contact = () => {
       setErr(true);
       return;
     }
-    setTimeout(() => {
-      emailRef.current.value = '';
-    }, 4000);
+    // setTimeout(() => {
+    //   emailRef.current.value = '';
+    // }, 4000);
+    window.onbeforeunload = () => {
+      for (const form of document.getElementsByTagName('form')) {
+        form.reset();
+      }
+    };
   };
   return (
     <Wrapper>
