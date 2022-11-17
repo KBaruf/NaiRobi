@@ -24,7 +24,7 @@ const Contact = () => {
         <h3>Join our newsletter and get 20% off</h3>
         <div className='content'>
           <p>
-            With a little imagination and our expertise, any funiture style is possible. <strong>Join our newsletter</strong> and see the what we've done with just wood, its unbelievable!{' '}
+            With a little imagination and our expertise, any funiture style is possible. <strong>Join our newsletter</strong> and see the what we've done with just wood, it's unbelievable!{' '}
           </p>
           <form action='https://formspree.io/f/mbjbpbpj' method='POST' className='contact-form'>
             <input type='email' name='email' className='form-input' placeholder='enter your email' ref={emailRef} />
