@@ -7,17 +7,10 @@ const Paymentsuccess = () => {
   const { shipping_fee, total_amount, clearCart } = useCartContext();
   const totalPayment = shipping_fee + total_amount;
   const { data: session, loading } = useSession();
-
-  const router = useRouter();
   if (typeof window !== 'undefined') {
     if (!session) {
       window.location.href = '/';
     }
-    //  else {
-    //   setTimeout(() => {
-    //     window.location.href = '/';
-    //   }, 3600);
-    // }
   }
 
   clearCart();

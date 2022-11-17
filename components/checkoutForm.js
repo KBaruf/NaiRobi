@@ -70,7 +70,7 @@ export default function CheckoutForm() {
         <article>
           <p>Test Card#: 4242 4242 4242 4242 </p>
           <p>(Ex date: 12/34 ) (CVC: 333)</p>
-          <h3>Your total is {formatPrice(shipping_fee + total_amount)} </h3>
+          <h3 style={{ textTransform: 'none' }}>Your total is {formatPrice(shipping_fee + total_amount)} </h3>
         </article>
         <PaymentElement id='payment-element' />
         <button disabled={isLoading || !stripe || !elements} id='submit'>

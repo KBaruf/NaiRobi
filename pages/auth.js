@@ -12,10 +12,12 @@ const Authentication = () => {
   const [errorAlert, setErrorAlert] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [accSuccess, setAccSuccess] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
   const { data: session, loading } = useSession();
 
   // Create User and Display error messages
   async function createUserHandler(email, password) {
+    setisLoading(true);
     try {
       const response = await fetch('/api/auth', {
         method: 'POST',
@@ -23,7 +25,7 @@ const Authentication = () => {
         headers: { 'Content-Type': 'application/json' },
       });
       const data = await response.json();
-
+      setisLoading(false);
       if (response.ok) {
         setSuccessAlert(true);
         setTimeout(() => {
@@ -83,11 +85,13 @@ const Authentication = () => {
 
     if (!activeAcc) return;
 
+    setisLoading(true);
     const result = await signIn('credentials', {
       redirect: false,
       email: signinEmail,
       password: signinPassword,
     });
+    setisLoading(false);
     // console.log(result);
     // Handle Login Error
 
@@ -130,8 +134,8 @@ const Authentication = () => {
     if (!activeAcc) {
       const signupEmail = emailSignupRef.current.value.toLowerCase();
       const signupPassword = passSignupRef.current.value.toLowerCase();
-      const result = await createUserHandler(signupEmail, signupPassword);
 
+      const result = await createUserHandler(signupEmail, signupPassword);
       if (signupPassword.length < 6) {
         setErrorAlert(true);
         setSuccessAlert(false);
@@ -156,8 +160,8 @@ const Authentication = () => {
     return (
       <Wrapper>
         <div className='login-form'>
-          {successAlert && <p className='success'>success</p>}
-          {accSuccess && <p className='success'>Please Login to Continue!</p>}
+          {successAlert && <h3 className='success'>success</h3>}
+          {accSuccess && <h3 className='success'>Please Login to Continue!</h3>}
           {errorAlert && <p className='alert'>{errorText}</p>}
           <p style={{ textAlign: 'center', backgroundColor: '#eee' }}>
             <strong>test account: </strong>[email: test@test.com || password: 123456]
@@ -180,6 +184,7 @@ const Authentication = () => {
               </Link> */}
             </div>
           </form>
+          {isLoading && <h3 style={{ textAlign: 'center', color: '#94d82d' }}>Loading...</h3>}
         </div>
       </Wrapper>
     );
@@ -203,6 +208,7 @@ const Authentication = () => {
               </button>
             </div>
           </form>
+          {isLoading && <h3 style={{ textAlign: 'center', color: '#94d82d' }}>Loading...</h3>}
         </div>
       </Wrapper>
     );
@@ -295,9 +301,8 @@ const Wrapper = styled.section`
     }
     .success {
       text-align: center;
-      font-size: 1.2rem;
-      background: #b2f2bb;
-      color: #fff;
+      // font-size: 1.2rem;
+      color: #94d82d;
     }
     .forgot {
       color: lighten(@blue, 10%);
