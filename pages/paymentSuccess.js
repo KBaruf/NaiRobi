@@ -10,6 +10,8 @@ const Paymentsuccess = () => {
   if (typeof window !== 'undefined') {
     if (!session) {
       window.location.href = '/';
+    } else {
+      window.location.href = '/';
     }
   }
 
