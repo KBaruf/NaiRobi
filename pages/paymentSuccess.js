@@ -7,6 +7,7 @@ const Paymentsuccess = () => {
   const { shipping_fee, total_amount, clearCart } = useCartContext();
   const totalPayment = shipping_fee + total_amount;
   const { data: session, loading } = useSession();
+  const router = useRouter();
   if (typeof window !== 'undefined') {
     if (!session) {
       window.location.href = '/';
@@ -29,7 +30,7 @@ const Paymentsuccess = () => {
       <button
         className='btn'
         onClick={() => {
-          window.location.href = '/';
+          router.push('/');
         }}
       >
         Back to Homepage{' '}
