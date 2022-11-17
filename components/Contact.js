@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Contact = () => {
+  const [err, setErr] = useState(false);
+  const emailRef = useRef();
+  const formHandler = (e) => {
+    const validateEmail = (email) => {
+      return String(email)
+        .toLowerCase()
+        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    };
+    const email = emailRef.current.value;
+    const checkEmail = validateEmail(email);
+    if (email.length === 0 || !checkEmail) {
+      e.preventDefault();
+      setErr(true);
+      return;
+    }
+  };
   return (
     <Wrapper>
       <div className='section-center'>
         <h3>Join our newsletter and get 20% off</h3>
         <div className='content'>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur quae libero dolore quo deleniti omnis, harum autem impedit sunt tempora.</p>
+          <p>
+            With a little imagination and our expertise, any funiture style is possible. <strong>Join our newsletter</strong> and see the what we've done with just wood, its unbelievable!{' '}
+          </p>
           <form action='https://formspree.io/f/mbjbpbpj' method='POST' className='contact-form'>
-            <input type='email' name='email' className='form-input' placeholder='enter your email' />
-            <button type='submit' className='submit-btn'>
+            <input type='email' name='email' className='form-input' placeholder='enter your email' ref={emailRef} />
+            <button onClick={formHandler} type='submit' className='submit-btn'>
               subscribe
             </button>
+            {err && <p style={{ color: 'salmon' }}>Invalid email!</p>}
           </form>
         </div>
       </div>
