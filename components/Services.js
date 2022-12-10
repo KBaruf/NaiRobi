@@ -8,10 +8,10 @@ const Services = () => {
       <div className='section-center'>
         <article className='header'>
           <h3>
-            custom funiture <br />
+            custom furniture <br />
             build only for you
           </h3>
-          <p>A good home funiture is more than just a piece of wood, its part of our comfort and happiness</p>
+          <p>A good home furniture is more than just a piece of wood, its part of our comfort and happiness</p>
         </article>
         <div className='services-center'>
           {services.map((service) => {

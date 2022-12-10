@@ -15,7 +15,7 @@ const Hero = () => {
           <br />
           comfort zone
         </h1>
-        <p>With over 45 years in business, we have expertise to customize and desgn your funiture to your pleasing. We can make anything from a simple chairs to highly elaborate and unique funitures. </p>
+        <p>With over 45 years in business, we have expertise to customize and desgn your furniture to your pleasing. We can make anything from a simple chairs to highly elaborate and unique furnitures. </p>
         <Link href='/products' className='btn hero-btn'>
           shop now
         </Link>
