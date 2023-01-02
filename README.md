@@ -1,34 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Comfy-Sloth Ecommerce
 
-## Getting Started
+[ComfySloth](https://comfysloth.vercel.app/) is a web application for selling custom-made furniture.
 
-First, run the development server:
+Build with a bunch of technologies, but to name a few:
 
+- [Next.js](https://nextjs.org/) 
+- [Stripe Gateway](https://stripe.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [NextAuth](https://next-auth.js.org/)
+- [Styled-jsx](https://nextjs.org/blog/styling-next-with-styled-jsx)
+
+## Set Up 
+Install npm packages
 ```bash
-npm run dev
-# or
-yarn dev
+npm install 
 ```
+Register for  [Stripe gateway](https://stripe.com) and obtain your public and private keys.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a .env file in the root and paste your stripe key with the name STRIPE_PUBLIC_KEY: and STRIPE_SECRET_KEY:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Available Scripts
+In the project directory, you can run:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## npm run dev
+```python
+npm run dev
+```
+Runs the app in development mode.
+Open http://localhost:3000 to view it in the browser.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The page will reload if you make edits.
+You will also see any errors in the console.
 
-## Learn More
+## npm run build
+```python
+npm run build
+```
+Builds the app for production to the .next folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-To learn more about Next.js, take a look at the following resources:
+## npm run start
+```python
+npm run start
+```
+Starts the application in production mode. The application should be compiled with `next build` first.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See the section in Next docs about deployment for more information.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Using CSS
+To enable high reusability and clean CSS files, the styled component was utilized.
+```jsx
+const Wrapper = styled.article`
+  .subtotal {
+    display: none;
+  }
+  .price {
+    display: none;
+  }
+  display: grid;
+  grid-template-columns: 200px auto auto;
+  grid-template-rows: 75px;
+  gap: 3rem 1rem;
+  justify-items: center;
+  margin-bottom: 3rem;
+  align-items: center;
+  }
+```
+## Build & Deploy to Vercel
+```python
+npm run build
+```
+Vercel offers instant and automatic deployment when code is pushed to Git repositories.
+Import the project to vercel to activate automatic deployment
+## Contributing
 
-## Deploy on Vercel
+Pull requests are welcome. For significant changes, please open an issue first
+to discuss what you would like to change.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Please make sure to update tests as appropriate.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
