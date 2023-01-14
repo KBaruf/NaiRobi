@@ -17,7 +17,7 @@ const AboutPage = () => {
               <div className='underline'></div>
             </h2>
           </div>
-          <p>ComfySloth is a wood company located in Fort Woth Tx. We specialize in both commercial and residential furnitures. Established over 45 years ago as a local cabinet shop, we have grown and attained a great experience in woodworking. We are commited to delivering high quality furnitures and establish a long term working relationship with our partners and customers.</p>
+          <p>NaiRobi is a wood company located in Fort Worth Tx. We specialize in both commercial and residential furnitures. Established over 45 years ago as a local cabinet shop, we have grown and attained a great experience in woodworking. We are commited to delivering high quality furnitures and establish a long term working relationship with our partners and customers.</p>
         </article>
       </Wrapper>
     </main>
