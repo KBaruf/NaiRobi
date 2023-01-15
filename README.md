@@ -1,6 +1,6 @@
-# Comfy-Sloth Ecommerce
+# NaiRobi Ecommerce
 
-[ComfySloth](https://comfysloth.vercel.app/) is a web application for selling custom-made furniture.
+[NaiRobi](https://nairobi1.vercel.app/) is a web application for selling custom-made furniture.
 
 Build with a bunch of technologies, but to name a few:
 
