@@ -53,7 +53,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'https://comfysloth.vercel.app/paymentSuccess',
+        return_url: 'https://nairobi1.vercel.app/paymentSuccess',
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
